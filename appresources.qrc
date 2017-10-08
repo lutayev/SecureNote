@@ -1,2 +1,14 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/Images">
+        <file>png/About.png</file>
+        <file>png/Copy.png</file>
+        <file>png/Cut.png</file>
+        <file>png/New.png</file>
+        <file>png/Open.png</file>
+        <file>png/Paste.png</file>
+        <file>png/Redo.png</file>
+        <file>png/Save as.png</file>
+        <file>png/Save.png</file>
+        <file>png/Undo.png</file>
+    </qresource>
+</RCC>

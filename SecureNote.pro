@@ -36,3 +36,6 @@ FORMS += \
 CONFIG += mobility
 MOBILITY = 
 
+RESOURCES += \
+    appresources.qrc
+
