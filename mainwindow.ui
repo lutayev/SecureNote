@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>536</width>
     <height>300</height>
    </rect>
   </property>
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>391</width>
-      <height>221</height>
+      <width>501</width>
+      <height>211</height>
      </rect>
     </property>
    </widget>
@@ -37,6 +37,8 @@
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
    <addaction name="actionSave_as"/>
+   <addaction name="actionEncrypt_all_text"/>
+   <addaction name="actionDecrypt_all_text"/>
    <addaction name="separator"/>
    <addaction name="actionCopy"/>
    <addaction name="actionCut"/>
@@ -50,7 +52,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>536</width>
      <height>21</height>
     </rect>
    </property>
@@ -185,11 +187,19 @@
    </property>
   </action>
   <action name="actionEncrypt_all_text">
+   <property name="icon">
+    <iconset resource="appresources.qrc">
+     <normaloff>:/Images/png/encrypt.png</normaloff>:/Images/png/encrypt.png</iconset>
+   </property>
    <property name="text">
     <string>Encrypt all text</string>
    </property>
   </action>
   <action name="actionDecrypt_all_text">
+   <property name="icon">
+    <iconset resource="appresources.qrc">
+     <normaloff>:/Images/png/decrypt.png</normaloff>:/Images/png/decrypt.png</iconset>
+   </property>
    <property name="text">
     <string>Decrypt all text</string>
    </property>

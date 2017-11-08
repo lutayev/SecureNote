@@ -10,5 +10,7 @@
         <file>png/Save as.png</file>
         <file>png/Save.png</file>
         <file>png/Undo.png</file>
+        <file>png/encrypt.png</file>
+        <file>png/decrypt.png</file>
     </qresource>
 </RCC>
