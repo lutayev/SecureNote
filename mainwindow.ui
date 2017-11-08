@@ -17,10 +17,10 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>104</width>
-      <height>71</height>
+      <x>0</x>
+      <y>0</y>
+      <width>391</width>
+      <height>221</height>
      </rect>
     </property>
    </widget>
@@ -81,13 +81,22 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuSecure">
+    <property name="title">
+     <string>Secure</string>
+    </property>
+    <addaction name="actionEncrypt_all_text"/>
+    <addaction name="actionDecrypt_all_text"/>
+    <addaction name="actionSet_the_encryption_password"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuAbout"/>
+   <addaction name="menuSecure"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/New.png</normaloff>:/Images/png/New.png</iconset>
    </property>
    <property name="text">
@@ -96,7 +105,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Open.png</normaloff>:/Images/png/Open.png</iconset>
    </property>
    <property name="text">
@@ -105,7 +114,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Save.png</normaloff>:/Images/png/Save.png</iconset>
    </property>
    <property name="text">
@@ -114,7 +123,7 @@
   </action>
   <action name="actionSave_as">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Save as.png</normaloff>:/Images/png/Save as.png</iconset>
    </property>
    <property name="text">
@@ -123,7 +132,7 @@
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Copy.png</normaloff>:/Images/png/Copy.png</iconset>
    </property>
    <property name="text">
@@ -132,7 +141,7 @@
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Cut.png</normaloff>:/Images/png/Cut.png</iconset>
    </property>
    <property name="text">
@@ -141,7 +150,7 @@
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Paste.png</normaloff>:/Images/png/Paste.png</iconset>
    </property>
    <property name="text">
@@ -150,7 +159,7 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Undo.png</normaloff>:/Images/png/Undo.png</iconset>
    </property>
    <property name="text">
@@ -159,7 +168,7 @@
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset>
+    <iconset resource="appresources.qrc">
      <normaloff>:/Images/png/Redo.png</normaloff>:/Images/png/Redo.png</iconset>
    </property>
    <property name="text">
@@ -167,12 +176,33 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="appresources.qrc">
+     <normaloff>:/Images/png/About.png</normaloff>:/Images/png/About.png</iconset>
+   </property>
    <property name="text">
     <string>About</string>
    </property>
   </action>
+  <action name="actionEncrypt_all_text">
+   <property name="text">
+    <string>Encrypt all text</string>
+   </property>
+  </action>
+  <action name="actionDecrypt_all_text">
+   <property name="text">
+    <string>Decrypt all text</string>
+   </property>
+  </action>
+  <action name="actionSet_the_encryption_password">
+   <property name="text">
+    <string>Set the encryption password</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="appresources.qrc"/>
+ </resources>
  <connections/>
 </ui>

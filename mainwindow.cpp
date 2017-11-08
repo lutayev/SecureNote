@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
+    ui->textEdit->setText("Some test text");
 }
 
 MainWindow::~MainWindow()
@@ -27,15 +28,12 @@ void MainWindow::on_actionOpen_triggered()
     if(!file.isEmpty())
     {
         QFile sFile(file);
-        if(sFile.open(QFile::ReadOnly | QFile::Text))
+        if(sFile.open(QFile::ReadOnly))
         {
             mFileName = file;
-            QTextStream in(&sFile);
-            QString text = in.readAll();
+            fileData = sFile.readAll();
             sFile.close();
-
-            ui->textEdit->setPlainText(text);
-
+            ui->textEdit->setPlainText(QString::fromUtf8(fileData));
         }
     }
 }
@@ -43,16 +41,15 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     QFile sFile(mFileName);
-    if(sFile.open(QFile::WriteOnly | QFile::Text))
+    if(sFile.open(QFile::WriteOnly))
     {
-        QTextStream out(&sFile);
+       sFile.write(fileData);
 
-        out << ui->textEdit->toPlainText();
-
-        sFile.flush();
-        sFile.close();
+       sFile.flush();
+       sFile.close();
     }
 }
+
 void MainWindow::on_actionSave_as_triggered()
 {
     QString file = QFileDialog::getSaveFileName(this, "Save a file");
@@ -87,4 +84,27 @@ void MainWindow::on_actionUndo_triggered()
 void MainWindow::on_actionRedo_triggered()
 {
     ui->textEdit->redo();
+}
+
+void MainWindow::on_actionEncrypt_all_text_triggered()
+{
+   encodedData = QAESEncryption::Crypt(QAESEncryption::AES_128, QAESEncryption::ECB, ui->textEdit->toPlainText().toUtf8(), QByteArray("1111111111111111"));
+   ui->textEdit->setText(QString(encodedData));
+   qDebug() << "Encoded raw byteArray: " << encodedData;
+   //qDebug() << "Qstring(encodedArray): " <<QString(encodedData);
+   //qDebug() << "(QString::fromUtf8(encodedArray)).toUtf8(): " <<(QString::fromUtf8(encodedData)).toUtf8();
+   fileData = encodedData;
+}
+
+void MainWindow::on_actionDecrypt_all_text_triggered()
+{
+    decodedData = QAESEncryption::Decrypt(QAESEncryption::AES_128, QAESEncryption::ECB, fileData, QByteArray("1111111111111111"));
+    ui->textEdit->setText(QString::fromUtf8(decodedData));
+    qDebug() << "Decoded text: " << QString::fromUtf8(decodedData);
+    fileData = decodedData;
+}
+
+void MainWindow::on_actionSet_the_encryption_password_triggered()
+{
+
 }

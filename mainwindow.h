@@ -6,6 +6,7 @@
 #include <QtGui>
 #include <QTextEdit>
 #include <QFileDialog>
+#include "qaesencryption.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,10 +40,20 @@ private slots:
 
     void on_actionUndo_triggered();
 
+    void on_actionEncrypt_all_text_triggered();
+
+    void on_actionDecrypt_all_text_triggered();
+
+    void on_actionSet_the_encryption_password_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString mFileName;
-
+    QByteArray tempData;
+    QByteArray encodedData;
+    QByteArray decodedData;
+    QByteArray fileData;
+    bool isEncoded;
 };
 
 #endif // MAINWINDOW_H
