@@ -60,7 +60,6 @@ private:
     QByteArray encodedData;
     QByteArray decodedData;
     QByteArray fileData;
-    bool isEncoded;
     bool isEncrypted;
 };
 

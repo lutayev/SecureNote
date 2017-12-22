@@ -33,7 +33,6 @@ void MainWindow::enable_edit_actions(bool isEnabled)
     ui->actionUndo->setEnabled(isEnabled);
 }
 
-
 void MainWindow::on_actionNew_triggered()
 {
     mFileName = "";
@@ -46,7 +45,10 @@ void MainWindow::on_actionNew_triggered()
     enable_edit_actions(true);
 
     ui->actionEncrypt_all_text->setEnabled(true);
+    ui->actionDecrypt_all_text->setEnabled(false);
     isEncrypted = false;
+    mFileName = "NewFile.txt";
+    setWindowTitle(mFileName);
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -60,16 +62,22 @@ void MainWindow::on_actionOpen_triggered()
         {
             mFileName = file;
             fileData = sFile.readAll();
+            qDebug() << "Raw read from file: " << fileData;
             sFile.close();
             ui->textEdit->setPlainText(QString::fromUtf8(fileData));
             ui->textEdit->setReadOnly(true);
             ui->actionEdit_text->setEnabled(true);
 
+            ui->actionEdit_text->setText("ENABLE EDIT");
+            ui->textEdit->setReadOnly(true);
+            enable_edit_actions(false);
             ui->actionDecrypt_all_text->setEnabled(isEncrypted);
             ui->actionEncrypt_all_text->setEnabled(!isEncrypted);
         }
         sFile.close();
     }
+
+    setWindowTitle(mFileName);
 }
 
 void MainWindow::on_actionOpen_encrypted_triggered()
@@ -86,6 +94,13 @@ void MainWindow::on_actionOpen_decrypted_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
+    //get text from UI if file is NOT encrypted
+    if (!isEncrypted)
+    {
+        fileData = ui->textEdit->toPlainText().toUtf8();
+    }
+
+    //save data to file
     QFile sFile(mFileName);
     if(sFile.open(QFile::WriteOnly))
     {
@@ -94,7 +109,9 @@ void MainWindow::on_actionSave_triggered()
        sFile.flush();
        sFile.close();
     }
-    sFile.close();
+    qDebug() << "Raw wrote to file: " << fileData;
+
+    setWindowTitle(mFileName);
 }
 
 void MainWindow::on_actionSave_as_triggered()
@@ -136,11 +153,13 @@ void MainWindow::on_actionRedo_triggered()
 void MainWindow::on_actionEncrypt_all_text_triggered()
 {
    encodedData = QAESEncryption::Crypt(QAESEncryption::AES_128, QAESEncryption::ECB, ui->textEdit->toPlainText().toUtf8(), QByteArray("1104300711043007"));
-   ui->textEdit->setText(QString(encodedData));
-   qDebug() << "Encoded raw byteArray: " << encodedData;
-   //qDebug() << "Qstring(encodedArray): " <<QString(encodedData);
-   //qDebug() << "(QString::fromUtf8(encodedArray)).toUtf8(): " <<(QString::fromUtf8(encodedData)).toUtf8();
+   ui->textEdit->setText(encodedData);
+   qDebug() << "Encoded raw byteArray (toUtf8): " << encodedData;
+//   qDebug() << "Encoded raw byteArray (to char*) " <<;
+//   qDebug() << "Text in the ui.textEdit(toUtf8): " << ui->textEdit->toPlainText();
+
    fileData = encodedData;
+   isEncrypted = true;
 
    ui->actionDecrypt_all_text->setEnabled(true);
    ui->actionEncrypt_all_text->setEnabled(false);
@@ -153,7 +172,9 @@ void MainWindow::on_actionDecrypt_all_text_triggered()
     decodedData = QAESEncryption::Decrypt(QAESEncryption::AES_128, QAESEncryption::ECB, fileData, QByteArray("1104300711043007"));
     ui->textEdit->setText(QString::fromUtf8(decodedData));
     qDebug() << "Decoded text: " << QString::fromUtf8(decodedData);
+
     fileData = decodedData;
+    isEncrypted = false;
 
     ui->actionDecrypt_all_text->setEnabled(false);
     ui->actionEncrypt_all_text->setEnabled(true);
