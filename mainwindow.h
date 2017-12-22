@@ -46,6 +46,8 @@ private slots:
 
     void on_actionSet_the_encryption_password_triggered();
 
+    void on_actionEdit_text_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString mFileName;

@@ -40,6 +40,7 @@
    <addaction name="actionEncrypt_all_text"/>
    <addaction name="actionDecrypt_all_text"/>
    <addaction name="separator"/>
+   <addaction name="actionEdit_text"/>
    <addaction name="actionCopy"/>
    <addaction name="actionCut"/>
    <addaction name="actionPaste"/>
@@ -207,6 +208,14 @@
   <action name="actionSet_the_encryption_password">
    <property name="text">
     <string>Set the encryption password</string>
+   </property>
+  </action>
+  <action name="actionEdit_text">
+   <property name="text">
+    <string>EDIT TEXT</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit Text</string>
    </property>
   </action>
  </widget>

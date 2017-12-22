@@ -7,7 +7,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
-    ui->textEdit->setText("Some test text");
+
+    ui->textEdit->setText("Create new or open a document");
+    ui->textEdit->setReadOnly(true);
+
+    ui->actionEdit_text->setText("ENABLE EDIT");
+    ui->actionEdit_text->setEnabled(false);
+
+    ui->actionEncrypt_all_text->setEnabled(false);
+    ui->actionDecrypt_all_text->setEnabled(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -18,7 +27,13 @@ void MainWindow::on_actionNew_triggered()
 {
     mFileName = "";
     ui->textEdit->setPlainText("");
-    //ui->textEdit->selectAll();
+    ui->textEdit->setReadOnly(false);
+    ui->actionEdit_text->setEnabled(false);
+
+    ui->actionEdit_text->setText("DISABLE EDIT");
+    ui->actionEdit_text->setEnabled(true);
+
+    ui->actionEncrypt_all_text->setEnabled(true);
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -34,7 +49,13 @@ void MainWindow::on_actionOpen_triggered()
             fileData = sFile.readAll();
             sFile.close();
             ui->textEdit->setPlainText(QString::fromUtf8(fileData));
+            ui->textEdit->setReadOnly(true);
+
+            ui->actionDecrypt_all_text->setEnabled(true);
+            ui->actionEncrypt_all_text->setEnabled(true);
+            ui->actionEdit_text->setEnabled(true);
         }
+        sFile.close();
     }
 }
 
@@ -48,6 +69,7 @@ void MainWindow::on_actionSave_triggered()
        sFile.flush();
        sFile.close();
     }
+    sFile.close();
 }
 
 void MainWindow::on_actionSave_as_triggered()
@@ -88,23 +110,45 @@ void MainWindow::on_actionRedo_triggered()
 
 void MainWindow::on_actionEncrypt_all_text_triggered()
 {
-   encodedData = QAESEncryption::Crypt(QAESEncryption::AES_128, QAESEncryption::ECB, ui->textEdit->toPlainText().toUtf8(), QByteArray("1111111111111111"));
+   encodedData = QAESEncryption::Crypt(QAESEncryption::AES_128, QAESEncryption::ECB, ui->textEdit->toPlainText().toUtf8(), QByteArray("1104300711043007"));
    ui->textEdit->setText(QString(encodedData));
    qDebug() << "Encoded raw byteArray: " << encodedData;
    //qDebug() << "Qstring(encodedArray): " <<QString(encodedData);
    //qDebug() << "(QString::fromUtf8(encodedArray)).toUtf8(): " <<(QString::fromUtf8(encodedData)).toUtf8();
    fileData = encodedData;
+
+   ui->actionDecrypt_all_text->setEnabled(true);
+   ui->actionEncrypt_all_text->setEnabled(false);
+   ui->actionEdit_text->setEnabled(false);
+   ui->textEdit->setReadOnly(true);
 }
 
 void MainWindow::on_actionDecrypt_all_text_triggered()
 {
-    decodedData = QAESEncryption::Decrypt(QAESEncryption::AES_128, QAESEncryption::ECB, fileData, QByteArray("1111111111111111"));
+    decodedData = QAESEncryption::Decrypt(QAESEncryption::AES_128, QAESEncryption::ECB, fileData, QByteArray("1104300711043007"));
     ui->textEdit->setText(QString::fromUtf8(decodedData));
     qDebug() << "Decoded text: " << QString::fromUtf8(decodedData);
     fileData = decodedData;
+
+    ui->actionDecrypt_all_text->setEnabled(false);
+    ui->actionEncrypt_all_text->setEnabled(true);
+    ui->actionEdit_text->setEnabled(true);
+    ui->textEdit->setReadOnly(false);
 }
 
 void MainWindow::on_actionSet_the_encryption_password_triggered()
 {
 
+}
+
+void MainWindow::on_actionEdit_text_triggered()
+{
+    if (ui->textEdit->isReadOnly())
+    {
+        ui->textEdit->setReadOnly(false);
+        ui->actionEdit_text->setText("DISABLE EDIT");
+    } else {
+        ui->textEdit->setReadOnly(true);
+        ui->actionEdit_text->setText("ENABLE EDIT");
+    }
 }
