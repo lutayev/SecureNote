@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>607</width>
+    <width>650</width>
     <height>283</height>
    </rect>
   </property>
@@ -28,7 +28,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
@@ -53,23 +53,24 @@
    <addaction name="actionEncrypt_all_text"/>
    <addaction name="actionDecrypt_all_text"/>
    <addaction name="separator"/>
+   <addaction name="actionSet_the_encryption_password"/>
    <addaction name="actionSave"/>
    <addaction name="actionSave_as"/>
    <addaction name="separator"/>
+   <addaction name="actionEdit_text"/>
    <addaction name="actionCopy"/>
    <addaction name="actionCut"/>
    <addaction name="actionPaste"/>
    <addaction name="separator"/>
    <addaction name="actionUndo"/>
    <addaction name="actionRedo"/>
-   <addaction name="actionEdit_text"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>607</width>
+     <width>650</width>
      <height>21</height>
     </rect>
    </property>
@@ -79,8 +80,8 @@
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionOpen_decrypted"/>
     <addaction name="actionOpen_encrypted"/>
+    <addaction name="actionOpen_decrypted"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
@@ -109,6 +110,7 @@
     <addaction name="actionEncrypt_all_text"/>
     <addaction name="actionDecrypt_all_text"/>
     <addaction name="actionSet_the_encryption_password"/>
+    <addaction name="actionUnlock_ALL_buttons_UNSAFE"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -224,6 +226,10 @@
    </property>
   </action>
   <action name="actionSet_the_encryption_password">
+   <property name="icon">
+    <iconset resource="appresources.qrc">
+     <normaloff>:/Images/png/key.png</normaloff>:/Images/png/key.png</iconset>
+   </property>
    <property name="text">
     <string>Set the encryption password</string>
    </property>
@@ -252,6 +258,11 @@
    </property>
    <property name="text">
     <string>Open decrypted file</string>
+   </property>
+  </action>
+  <action name="actionUnlock_ALL_buttons_UNSAFE">
+   <property name="text">
+    <string>Unlock ALL buttons (UNSAFE!!!)</string>
    </property>
   </action>
  </widget>

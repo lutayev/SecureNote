@@ -6,7 +6,9 @@
 #include <QtGui>
 #include <QTextEdit>
 #include <QFileDialog>
+#include <QLineEdit>
 #include "qaesencryption.h"
+#include "passworddialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,10 +18,14 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+public slots:
+    void passwordChanged(QByteArray passwordHash);
+
 public:
     explicit MainWindow(QWidget *parent = 0);
-    QTextEdit* mTextEdit;
     ~MainWindow();
+
+    QTextEdit* mTextEdit;
 
 private slots:
     void on_actionRedo_triggered();
@@ -52,15 +58,23 @@ private slots:
 
     void on_actionOpen_decrypted_triggered();
 
+    void on_actionUnlock_ALL_buttons_UNSAFE_triggered(bool checked);
+
 private:
     void enable_edit_actions(bool isEnabled);
     Ui::MainWindow *ui;
-    QString mFileName;
+
+    QLineEdit m_lineEdit;
+    QString m_fileName;
     QByteArray tempData;
     QByteArray encodedData;
     QByteArray decodedData;
     QByteArray fileData;
+    QByteArray m_passwordHash;
+    PasswordDialog* m_passwordDialog;
+
     bool isEncrypted;
+    bool isUnsafeMode;
 };
 
 #endif // MAINWINDOW_H

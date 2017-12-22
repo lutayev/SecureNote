@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    qaesencryption.cpp
+    qaesencryption.cpp \
+    passworddialog.cpp
 
 HEADERS += \
         mainwindow.h \
-    qaesencryption.h
+    qaesencryption.h \
+    passworddialog.h
 
 FORMS += \
         mainwindow.ui

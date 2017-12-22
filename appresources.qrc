@@ -14,5 +14,7 @@
         <file>png/decrypt.png</file>
         <file>png/Open_decrypted.png</file>
         <file>png/Open_encrypted.png</file>
+        <file>png/key.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>
