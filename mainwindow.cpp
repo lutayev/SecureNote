@@ -13,16 +13,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->actionEdit_text->setText("ENABLE EDIT");
     ui->actionEdit_text->setEnabled(false);
+    enable_edit_actions(false);
 
     ui->actionEncrypt_all_text->setEnabled(false);
     ui->actionDecrypt_all_text->setEnabled(false);
-
+    isEncrypted = false;
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::enable_edit_actions(bool isEnabled)
+{
+    ui->actionCut->setEnabled(isEnabled);
+    ui->actionPaste->setEnabled(isEnabled);
+    ui->actionRedo->setEnabled(isEnabled);
+    ui->actionUndo->setEnabled(isEnabled);
+}
+
+
 void MainWindow::on_actionNew_triggered()
 {
     mFileName = "";
@@ -32,8 +43,10 @@ void MainWindow::on_actionNew_triggered()
 
     ui->actionEdit_text->setText("DISABLE EDIT");
     ui->actionEdit_text->setEnabled(true);
+    enable_edit_actions(true);
 
     ui->actionEncrypt_all_text->setEnabled(true);
+    isEncrypted = false;
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -50,13 +63,25 @@ void MainWindow::on_actionOpen_triggered()
             sFile.close();
             ui->textEdit->setPlainText(QString::fromUtf8(fileData));
             ui->textEdit->setReadOnly(true);
-
-            ui->actionDecrypt_all_text->setEnabled(true);
-            ui->actionEncrypt_all_text->setEnabled(true);
             ui->actionEdit_text->setEnabled(true);
+
+            ui->actionDecrypt_all_text->setEnabled(isEncrypted);
+            ui->actionEncrypt_all_text->setEnabled(!isEncrypted);
         }
         sFile.close();
     }
+}
+
+void MainWindow::on_actionOpen_encrypted_triggered()
+{
+    isEncrypted = true;
+    on_actionOpen_triggered();
+}
+
+void MainWindow::on_actionOpen_decrypted_triggered()
+{
+    isEncrypted = false;
+    on_actionOpen_triggered();
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -147,8 +172,10 @@ void MainWindow::on_actionEdit_text_triggered()
     {
         ui->textEdit->setReadOnly(false);
         ui->actionEdit_text->setText("DISABLE EDIT");
+        enable_edit_actions(true);
     } else {
         ui->textEdit->setReadOnly(true);
         ui->actionEdit_text->setText("ENABLE EDIT");
+        enable_edit_actions(false);
     }
 }

@@ -12,5 +12,7 @@
         <file>png/Undo.png</file>
         <file>png/encrypt.png</file>
         <file>png/decrypt.png</file>
+        <file>png/Open_decrypted.png</file>
+        <file>png/Open_encrypted.png</file>
     </qresource>
 </RCC>

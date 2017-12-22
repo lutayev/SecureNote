@@ -48,7 +48,12 @@ private slots:
 
     void on_actionEdit_text_triggered();
 
+    void on_actionOpen_encrypted_triggered();
+
+    void on_actionOpen_decrypted_triggered();
+
 private:
+    void enable_edit_actions(bool isEnabled);
     Ui::MainWindow *ui;
     QString mFileName;
     QByteArray tempData;
@@ -56,6 +61,7 @@ private:
     QByteArray decodedData;
     QByteArray fileData;
     bool isEncoded;
+    bool isEncrypted;
 };
 
 #endif // MAINWINDOW_H
