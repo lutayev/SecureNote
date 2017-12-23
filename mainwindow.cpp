@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
             m_passwordHash = sFile.readAll();
         }
     }
+
+    m_fileName = "NewFile.txt";
 }
 
 MainWindow::~MainWindow()
@@ -52,11 +54,10 @@ void MainWindow::on_actionNew_triggered()
 {
     m_fileName = "";
     ui->textEdit->setPlainText("");
-    ui->textEdit->setReadOnly(!isUnsafeMode);
-    ui->actionEdit_text->setEnabled(isUnsafeMode);
+    ui->textEdit->setReadOnly(false);
 
     ui->actionEdit_text->setText("DISABLE EDIT");
-    ui->actionEdit_text->setEnabled(true);
+    ui->actionEdit_text->setEnabled(true && !isUnsafeMode);
     enable_edit_actions(true);
 
 
@@ -81,12 +82,11 @@ void MainWindow::on_actionOpen_triggered()
             qDebug() << "Raw read from file: " << fileData;
             sFile.close();
             ui->textEdit->setPlainText(QString::fromUtf8(fileData));
-            ui->textEdit->setReadOnly(true);
-            ui->actionEdit_text->setEnabled(true);
+            ui->actionEdit_text->setEnabled(true && !isUnsafeMode);
 
-            ui->actionEdit_text->setText("ENABLE EDIT");
-            ui->textEdit->setReadOnly(true);
-            enable_edit_actions(false ^ isUnsafeMode);
+            if (!isUnsafeMode) ui->actionEdit_text->setText("ENABLE EDIT");
+            ui->textEdit->setReadOnly(true && !isUnsafeMode);
+            enable_edit_actions(isUnsafeMode);
             ui->actionDecrypt_all_text->setEnabled(isEncrypted || isUnsafeMode);
             ui->actionEncrypt_all_text->setEnabled(!isEncrypted || isUnsafeMode);
         }
@@ -171,32 +171,31 @@ void MainWindow::on_actionEncrypt_all_text_triggered()
    encodedData = QAESEncryption::Crypt(QAESEncryption::AES_128, QAESEncryption::ECB, ui->textEdit->toPlainText().toUtf8(), QByteArray(m_passwordHash));
    ui->textEdit->setText(encodedData.toBase64());
    qDebug() << "Encoded HEX byteArray: " << encodedData.toBase64();
-//   qDebug() << "Encoded raw byteArray (to char*) " <<;
-//   qDebug() << "Text in the ui.textEdit(toUtf8): " << ui->textEdit->toPlainText();
 
    fileData = encodedData.toBase64();
    isEncrypted = true;
 
    ui->actionDecrypt_all_text->setEnabled(true);
    ui->actionEncrypt_all_text->setEnabled(isUnsafeMode);
-   ui->actionEdit_text->setEnabled(false || isUnsafeMode);
-   ui->textEdit->setReadOnly(true);
+   ui->actionEdit_text->setEnabled(false && isUnsafeMode);
+   ui->textEdit->setReadOnly(true && !isUnsafeMode);
 }
 
 void MainWindow::on_actionDecrypt_all_text_triggered()
 {
     decodedData = QAESEncryption::Decrypt(QAESEncryption::AES_128, QAESEncryption::ECB, QByteArray::fromBase64(ui->textEdit->toPlainText().toUtf8()), QByteArray(m_passwordHash));
     qDebug() << "Read from UI: " << ui->textEdit->toPlainText().toUtf8();
-    ui->textEdit->setText(QString::fromUtf8(decodedData));
+    ui->textEdit->setText(decodedData);
     qDebug() << "Decoded text: " << QString::fromUtf8(decodedData);
+
 
     fileData = decodedData;
     isEncrypted = false;
 
     ui->actionDecrypt_all_text->setEnabled(isUnsafeMode);
     ui->actionEncrypt_all_text->setEnabled(true);
-    ui->actionEdit_text->setEnabled(true);
-    ui->textEdit->setReadOnly(false || isUnsafeMode);
+    ui->actionEdit_text->setEnabled(true && !isUnsafeMode);
+    ui->textEdit->setReadOnly(false && !isUnsafeMode);
 }
 
 void MainWindow::on_actionSet_the_encryption_password_triggered()
@@ -234,6 +233,7 @@ void MainWindow::passwordChanged(QByteArray passwordHash)
     }
     m_passwordHash = passwordHash;
     qDebug() << "Get message from dialog: " << passwordHash;
+    qDebug() << "Password in hex: " << passwordHash.toHex();
     qDebug() << "Wrote password to data.dat: " << m_passwordHash;
 }
 
