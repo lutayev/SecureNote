@@ -9,6 +9,8 @@ PasswordDialog::PasswordDialog(QWidget* parent)
     m_buttonsLayout.addWidget(&m_acceptBtn);
     m_buttonsLayout.addWidget(&m_cancelBtn);
 
+    m_passwordInput.setEchoMode(QLineEdit::Password);
+
     m_acceptBtn.setText("Accept");
     m_cancelBtn.setText("Cancel");
 

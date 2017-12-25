@@ -38,7 +38,7 @@ FORMS += \
         mainwindow.ui
 
 CONFIG += mobility
-MOBILITY = 
+MOBILITY =
 
 RESOURCES += \
     appresources.qrc
