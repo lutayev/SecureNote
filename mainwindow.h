@@ -58,7 +58,7 @@ private slots:
 
     void on_actionOpen_decrypted_triggered();
 
-    void on_actionUnlock_ALL_buttons_UNSAFE_triggered(bool checked);
+    void on_actionExpert_mode_triggered(bool checked);
 
 private:
     void setEditActionsActive(bool isEnabled);
@@ -76,7 +76,7 @@ private:
     PasswordDialog* m_passwordDialog;
 
     bool isEncrypted;
-    bool isUnsafeMode;
+    bool isExpertMode;
 };
 
 #endif // MAINWINDOW_H

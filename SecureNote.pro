@@ -43,3 +43,4 @@ MOBILITY =
 RESOURCES += \
     appresources.qrc
 
+RC_FILE = appicon.rc

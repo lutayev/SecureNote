@@ -110,7 +110,7 @@
     <addaction name="actionEncrypt_all_text"/>
     <addaction name="actionDecrypt_all_text"/>
     <addaction name="actionSet_the_encryption_password"/>
-    <addaction name="actionUnlock_ALL_buttons_UNSAFE"/>
+    <addaction name="actionExpert_mode"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -260,9 +260,16 @@
     <string>Open decrypted file</string>
    </property>
   </action>
-  <action name="actionUnlock_ALL_buttons_UNSAFE">
+  <action name="actionExpert_mode">
+   <property name="icon">
+    <iconset resource="appresources.qrc">
+     <normaloff>:/Images/png/ExpertMode.png</normaloff>:/Images/png/ExpertMode.png</iconset>
+   </property>
    <property name="text">
-    <string>Unlock ALL buttons (UNSAFE!!!)</string>
+    <string>Expert mode (UNSAFE)</string>
+   </property>
+   <property name="toolTip">
+    <string>Unlock all buttons</string>
    </property>
   </action>
  </widget>

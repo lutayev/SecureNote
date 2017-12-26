@@ -15,6 +15,7 @@
         <file>png/Open_decrypted.png</file>
         <file>png/Open_encrypted.png</file>
         <file>png/key.png</file>
+        <file>png/SecureNote.png</file>
+        <file>png/ExpertMode.png</file>
     </qresource>
-    <qresource prefix="/"/>
 </RCC>

@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
 
-    isEncrypted = true;
-    isUnsafeMode = false;
+    isEncrypted = false;
+    isExpertMode = false;
 
     ui->textEdit->setText("Create new or open a document");
 
@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionEncrypt_all_text->setEnabled(false);
     ui->actionDecrypt_all_text->setEnabled(false);
 
-    ui->actionUnlock_ALL_buttons_UNSAFE->setCheckable(true);
+    ui->actionExpert_mode->setCheckable(true);
 
     QFile sFile("data.dat");
     if (!sFile.exists())
@@ -162,14 +162,14 @@ void MainWindow::on_actionSet_the_encryption_password_triggered()
 
 void MainWindow::on_actionEdit_text_triggered()
 {
-    ui->actionEdit_text->setEnabled(!isEncrypted || isUnsafeMode);
-    ui->textEdit->setReadOnly(!(ui->actionEdit_text->isChecked() || isUnsafeMode));
-    setEditActionsActive(ui->actionEdit_text->isChecked() || isUnsafeMode);
+    ui->actionEdit_text->setEnabled(!isEncrypted || isExpertMode);
+    ui->textEdit->setReadOnly(!(ui->actionEdit_text->isChecked() || isExpertMode));
+    setEditActionsActive(ui->actionEdit_text->isChecked() || isExpertMode);
 }
 
-void MainWindow::on_actionUnlock_ALL_buttons_UNSAFE_triggered(bool checked)
+void MainWindow::on_actionExpert_mode_triggered(bool checked)
 {
-    isUnsafeMode = checked;
+    isExpertMode = checked;
     ui->actionEdit_text->setChecked(checked);
     updBtnStatusEncrypted();
     on_actionEdit_text_triggered();
@@ -177,8 +177,8 @@ void MainWindow::on_actionUnlock_ALL_buttons_UNSAFE_triggered(bool checked)
 
 void MainWindow::updBtnStatusEncrypted()
 {
-    ui->actionEncrypt_all_text->setEnabled(!isEncrypted || isUnsafeMode);
-    ui->actionDecrypt_all_text->setEnabled(isEncrypted || isUnsafeMode);
+    ui->actionEncrypt_all_text->setEnabled(!isEncrypted || isExpertMode);
+    ui->actionDecrypt_all_text->setEnabled(isEncrypted || isExpertMode);
 }
 
 void MainWindow::setEditActionsActive(bool isEnabled)
