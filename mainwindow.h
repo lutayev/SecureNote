@@ -61,7 +61,9 @@ private slots:
     void on_actionUnlock_ALL_buttons_UNSAFE_triggered(bool checked);
 
 private:
-    void enable_edit_actions(bool isEnabled);
+    void setEditActionsActive(bool isEnabled);
+    void updBtnStatusEncrypted();
+
     Ui::MainWindow *ui;
 
     QLineEdit m_lineEdit;
