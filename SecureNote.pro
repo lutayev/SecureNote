@@ -44,3 +44,7 @@ RESOURCES += \
     appresources.qrc
 
 RC_FILE = appicon.rc
+
+DISTFILES += \
+    appicon.ico \
+    appicon.rc
