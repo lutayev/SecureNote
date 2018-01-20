@@ -60,6 +60,8 @@ private slots:
 
     void on_actionExpert_mode_triggered(bool checked);
 
+    void on_actionAbout_triggered();
+
 private:
     void setEditActionsActive(bool isEnabled);
     void updBtnStatusEncrypted();
@@ -74,6 +76,7 @@ private:
     QByteArray fileData;
     QByteArray m_passwordHash;
     PasswordDialog* m_passwordDialog;
+    QString m_version;
 
     bool isEncrypted;
     bool isExpertMode;

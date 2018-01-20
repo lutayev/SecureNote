@@ -1,7 +1,7 @@
 #include "passworddialog.h"
 #include "mainwindow.h"
 
-PasswordDialog::PasswordDialog(QWidget* parent)
+PasswordDialog::PasswordDialog(QWidget* parent) : QDialog(parent)
 {
     setLayout(&m_dialogLayout);
     m_dialogLayout.addWidget(&m_passwordInput);

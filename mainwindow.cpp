@@ -1,10 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    m_version = "0.10";
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
 
@@ -157,7 +159,8 @@ void MainWindow::on_actionSet_the_encryption_password_triggered()
 //    QByteArray pwd_hash = QCryptographicHash::hash("11111", QCryptographicHash::Md5);
 //    qDebug() << "Password hash: " << pwd_hash;
     m_passwordDialog = new PasswordDialog(this);
-    m_passwordDialog->show();
+    m_passwordDialog->exec();
+    delete m_passwordDialog;
 }
 
 void MainWindow::on_actionEdit_text_triggered()
@@ -227,4 +230,12 @@ void MainWindow::on_actionUndo_triggered()
 void MainWindow::on_actionRedo_triggered()
 {
     ui->textEdit->redo();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, "About Secure Note program", "This is the program for encrypting/decrypting text data.\n"
+                                                          "Author: Ivan Lutayev\n"
+                                                          "Email: i.lutayev@gmail.com\n"
+                                                          "Version: " + m_version);
 }

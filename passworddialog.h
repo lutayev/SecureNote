@@ -8,7 +8,7 @@
 #include <QHBoxLayout>
 
 
-class PasswordDialog : public QWidget
+class PasswordDialog : public QDialog
 {
     Q_OBJECT
 public:
