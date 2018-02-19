@@ -39,6 +39,31 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     m_fileName = "NewFile.txt";
+
+    //"OPEN WITH" research
+    if (QApplication::arguments().length() > 1)
+    {
+        m_fileName = QApplication::arguments().at(1);
+
+        if(!m_fileName.isEmpty())
+        {
+            QFile sFile(m_fileName);
+            if(sFile.open(QFile::ReadOnly))
+            {
+                fileData = sFile.readAll();
+                qDebug() << "Raw read from file: " << fileData;
+                sFile.close();
+                ui->textEdit->setPlainText(QString::fromUtf8(fileData));
+            }
+            sFile.close();
+        }
+
+        setWindowTitle(m_fileName);
+        on_actionExpert_mode_triggered(true);
+        ui->actionExpert_mode->setChecked(true);
+        on_actionEdit_text_triggered();
+        updBtnStatusEncrypted();
+    }
 }
 
 MainWindow::~MainWindow()
